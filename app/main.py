@@ -5,10 +5,12 @@ from contextlib import asynccontextmanager
 import redis
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.database.connection import get_db
 from app.routers.products import router as products_router
+
 
 
 # CONFIGURACOES REDIS
@@ -62,6 +64,14 @@ app = FastAPI(
     description="API com Python, Redis e PostgreSQL",
     version="1.0.0",
     lifespan=lifespan
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:5174",],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(products_router)

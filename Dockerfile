@@ -19,6 +19,9 @@ RUN groupadd --system app && \
 # Copiar aplicação
 COPY --chown=app:app app/ ./app/
 
+# Copiar testes automatizados
+COPY --chown=app:app tests/ ./tests/
+
 # Executar como usuário não privilegiado
 USER app
 
