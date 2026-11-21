@@ -300,3 +300,8 @@
     padding: 17px;
   }
 }
+
+.stat-card strong {
+  font-size: clamp(1.1rem, 1.7vw, 1.6rem);
+  white-space: nowrap;
+}

@@ -1,4 +1,6 @@
 
+import { NavLink } from "react-router-dom";
+
 import {
   LayoutDashboard,
   Package,
@@ -12,11 +14,11 @@ import {
 import "./Sidebar.css";
 
 const menuItems = [
-  { label: "Dashboard", icon: LayoutDashboard },
-  { label: "Inventário", icon: Package },
-  { label: "Analytics", icon: ChartNoAxesCombined },
-  { label: "Pedidos", icon: ShoppingCart },
-  { label: "Fornecedores", icon: Truck },
+  { label: "Dashboard", icon: LayoutDashboard, path: "/" },
+  { label: "Inventário", icon: Package, path: "/inventory" },
+  { label: "Analytics", icon: ChartNoAxesCombined, path: "/analytics" },
+  { label: "Pedidos", icon: ShoppingCart, path: "/orders" },
+  { label: "Fornecedores", icon: Truck, path: "/suppliers" },
 ];
 
 export default function Sidebar() {
@@ -32,27 +34,35 @@ export default function Sidebar() {
       <p className="sidebar-section">MENU PRINCIPAL</p>
 
       <nav className="sidebar-nav">
-        {menuItems.map((item, index) => {
+        {menuItems.map((item) => {
           const Icon = item.icon;
 
           return (
-            <a
-              href="#"
+            <NavLink
+              to={item.path}
               key={item.label}
-              className={`sidebar-link ${index === 0 ? "active" : ""}`}
+              end={item.path === "/"}
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
             >
               <Icon size={19} />
               <span>{item.label}</span>
-            </a>
+            </NavLink>
           );
         })}
       </nav>
 
       <div className="sidebar-bottom">
-        <a href="#" className="sidebar-link">
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
           <Settings size={19} />
           <span>Configurações</span>
-        </a>
+        </NavLink>
 
         <div className="sidebar-profile">
           <div className="profile-avatar">D</div>
